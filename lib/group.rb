@@ -4,7 +4,9 @@ require_relative '../config'
 VK = VkontakteApi::Client.new(@service_token)
 
 class Group
-  def self.get_groups_id(urls)
+  attr_reader :group_id
+
+  def self.get_group_ids(urls)
     group_names = []
     urls.each do |url|
       group_names << url.split('/').last
@@ -18,12 +20,7 @@ class Group
   end
 
   def get_posts(count_posts)
-    posts = VK.wall.get(owner_id: "-#{@group_id}", count: count_posts)['items']
-    if posts.empty?
-      puts "Не получены посты группы #{@group_id}"
-    else
-      posts
-    end
+    VK.wall.get(owner_id: "-#{@group_id}", count: count_posts)['items']
   end
 
   def get_topics
@@ -36,5 +33,9 @@ class Group
 
   def get_topic_comments
     #todo
+  end
+
+  def check_keyword(keywords, text)
+    (keywords & text.split)
   end
 end
