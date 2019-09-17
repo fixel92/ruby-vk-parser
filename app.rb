@@ -1,9 +1,9 @@
 #!/usr/bin/ruby
 # frozen_string_literal: true
 
-require 'vkontakte_api'
-require_relative 'config'
-require_relative './lib/group'
+require_relative 'lib/type'
+require_relative 'lib/group'
+require_relative 'lib/post'
 
 @file_path = File.dirname(__FILE__)
 
@@ -15,37 +15,51 @@ def check_file(file)
   end
 end
 
+def upgrade_keywords(keys)
+  keywords = []
+  keys.each do |key|
+    keywords << key.capitalize.to_s
+    keywords << key.upcase.to_s
+    keywords << key.to_s
+    keywords << "#{key} "
+    keywords << " #{key}"
+    keywords << "#{key}?"
+    keywords << "#{key}."
+    keywords << "#{key}!"
+  end
+  keywords
+end
+
 URLS = check_file('urls')
-KEYWORDS = check_file('keywords')
-ANTI_KEYWORDS = check_file('anti_keywords')
+KEYWORDS = upgrade_keywords(check_file('keywords'))
+ANTI_KEYWORDS = upgrade_keywords(check_file('anti_keywords'))
 
-group_ids = Group.get_group_ids(URLS)
+group_ids = Group.new.objects(urls: URLS)
 messages = []
-group_ids.each do |item|
-  group = Group.new(item['id'])
-  posts = group.get_posts(5)
-  sleep(1.5)
-  if posts.empty?
-    puts "Не получены посты группы #{group.group_id}"
 
-    next
+group_ids.each do |item|
+  new_post = Post.new(group_id: item['id'])
+  posts = Post.new(group_id: item['id']).objects(post_count: 5)
+  if posts.empty?
+    messages << 'Не получены посты группы https://vk.com/public' +
+                Group.new.surname(item['id'])[0]['id'].to_s
   else
     posts.each do |post|
-      if group.text_fits?(KEYWORDS, ANTI_KEYWORDS, post['text'])
-        messages << group.post_message(post, KEYWORDS)
+      if new_post.text_fits?(KEYWORDS, ANTI_KEYWORDS, post['text'])
+        messages << new_post.message(post, KEYWORDS)
       else
         puts 'Нет совпадений'
 
-        if post['comments']['count'].nonzero?
-          comments = group.get_post_comments(post, group.group_id)
-          comments.each do |comment|
-            next unless group.text_fits?(KEYWORDS, ANTI_KEYWORDS, comment['text'])
-
-            messages << group.comment_message(post, comment, KEYWORDS)
-          end
-        else
-          next
-        end
+        # if post['comments']['count'].nonzero?
+        #   comments = group.get_post_comments(post, group.group_id)
+        #   comments.each do |comment|
+        #     next unless group.text_fits?(KEYWORDS, ANTI_KEYWORDS, comment['text'])
+        #
+        #     messages << group.comment_message(post, comment, KEYWORDS)
+        #   end
+        # else
+        #   next
+        # end
       end
     end
   end
