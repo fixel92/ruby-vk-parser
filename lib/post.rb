@@ -1,5 +1,4 @@
 require 'vkontakte_api'
-require_relative '../config'
 require_relative 'type'
 require 'pry'
 
@@ -13,7 +12,12 @@ class Post < Type
 
   def objects(params = {})
     sleep(1)
+    begin
     @vk.wall.get(owner_id: "-#{@group_id}", count: params[:post_count])['items']
+    rescue VkontakteApi::Error => e
+      puts e
+      return []
+    end
   end
 
   def message(post, keywords)

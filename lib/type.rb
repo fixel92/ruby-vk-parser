@@ -1,5 +1,6 @@
 require 'vkontakte_api'
 require_relative '../config'
+require_relative '../data'
 require 'pry'
 
 class Type
@@ -10,8 +11,6 @@ class Type
     @token = SERVICE_TOKEN
   end
 
-  def comments; end
-
   def check_keyword(keywords, text)
     (keywords & text.split)
   end
@@ -20,6 +19,8 @@ class Type
     check_keyword(keywords, text).any? &
       check_keyword(anti_keywords, text).empty?
   end
+
+  def check; end
 
   def message; end
 end
