@@ -38,7 +38,7 @@ class Comment < Type
 
   def message(comment)
     "Комментарий https://vk.com/wall#{-@group_id}_#{@post.id}" \
-    "?reply=#{comment.id + reply_comment(comment)}" \
+    "?reply=#{comment.id}+#{reply_comment(comment)}" \
       "&w=wall#{-@group_id}_#{@post.id}_r#{comment.id} -" +
       check_keyword(KEYWORDS, comment['text']).to_s
   end
