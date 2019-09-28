@@ -39,7 +39,3 @@ class Post < Type
     messages
   end
 end
-
-
-
-
