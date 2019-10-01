@@ -17,7 +17,7 @@ group_ids.each do |group|
   topics = Topic.new(group_id: group['id']).objects(topic_counts: 90)
   topics.each do |topic|
     comments_topic = Comment.new(group_id: group['id'], post: topic)
-    messages << comments_topic.check('topic') if topic['comments'].nonzero?
+    messages << comments_topic.check('topic_comments') if topic['comments'].nonzero?
   end
 
   new_post = Post.new(group_id: group['id'])
@@ -26,10 +26,10 @@ group_ids.each do |group|
     messages << 'Не получены посты группы https://vk.com/public' +
                 Group.new.surname(group['id'])[0]['id'].to_s
   else
-    messages << new_post.check(posts)
+    messages << new_post.check(posts) # check posts and send in message
     posts.each do |post|
       comments_post = Comment.new(group_id: group['id'], post: post)
-      messages << comments_post.check('post') if comments_post.non_zero?
+      messages << comments_post.check('post_comments') if comments_post.non_zero?
     end
   end
 end

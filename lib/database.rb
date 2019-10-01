@@ -26,6 +26,4 @@ class Database
   def close
     @db.close
   end
-
-
 end
