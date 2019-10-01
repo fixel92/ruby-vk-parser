@@ -21,6 +21,7 @@
     <orderEntry type="library" scope="PROVIDED" name="oj (v3.7.12, RVM: ruby-2.5.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="pry (v0.12.2, RVM: ruby-2.5.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="rack (v2.0.6, RVM: ruby-2.5.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.4.1, RVM: ruby-2.5.3) [gem]" level="application" />
     <orderEntry type="library" scope="PROVIDED" name="vkontakte_api (v1.4.4, RVM: ruby-2.5.3) [gem]" level="application" />
   </component>
 </module>
