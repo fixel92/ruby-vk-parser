@@ -10,12 +10,12 @@ class  Group < Type
     super
   end
 
-  def surname(id)
+  def surname(id) # alternative name for group VK
     sleep(1.5)
     @vk.groups.getById(group_id: id)
   end
 
-  def filter(groups)
+  def filter(groups) # filter group with opened wall
     open_wall = []
     groups.select do |group|
       unless group['wall'] == 3
@@ -25,7 +25,7 @@ class  Group < Type
     open_wall
   end
 
-  def objects(params = {})
+  def objects(params = {}) # get groups
     group_names = []
     params[:urls].each do |url|
       group_names << url.split('/').last

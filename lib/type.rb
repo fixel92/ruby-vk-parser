@@ -15,12 +15,9 @@ class Type
     (keywords & text.split)
   end
 
+  # check fits text
   def text_fits?(keywords, anti_keywords, text)
     check_keyword(keywords, text).any? &
       check_keyword(anti_keywords, text).empty?
   end
-
-  def check; end
-
-  def message; end
 end

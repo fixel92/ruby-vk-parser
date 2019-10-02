@@ -13,7 +13,7 @@ class Post < Type
     @db = Database.new
   end
 
-  def objects(params = {})
+  def objects(params = {}) # get posts
     sleep(1)
     begin
       return  @vk.wall.get(owner_id: "-#{@group_id}", count: params[:post_count])['items']
@@ -24,7 +24,7 @@ class Post < Type
   end
 
   def message(post)
-    "https://vk.com/wall#{-@group_id}_#{post['id']} -" +
+    "Запись на стене https://vk.com/wall#{-@group_id}_#{post['id']} -" +
       check_keyword(KEYWORDS, post['text']).to_s
   end
 
@@ -39,7 +39,7 @@ class Post < Type
 
       next if @db.in_db?('posts', slug(post))
 
-      @db.write_to_db('posts', group_id: @group_id, slug: slug(post))
+      @db.write_to_db('posts', slug: slug(post))
       messages << message(post)
     end
     @db.close

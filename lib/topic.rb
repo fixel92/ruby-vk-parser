@@ -12,7 +12,7 @@ class Topic < Type
     @group_id = params[:group_id]
   end
 
-  def objects(params = {})
+  def objects(params = {}) # get topics
     sleep(1)
     begin
       return @vk.board.get_topics(access_token: SERVICE_TOKEN,

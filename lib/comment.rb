@@ -14,7 +14,7 @@ class Comment < Type
     @db = Database.new
   end
 
-  def objects(post, type)
+  def objects(post, type) # get comments post or topic
     comments_offset = 0
     sleep(1)
     if type == 'post_comments'
@@ -46,6 +46,7 @@ class Comment < Type
     end
   end
 
+  # url comment
   def slug(type, comment)
     if type == 'post_comments'
       "https://vk.com/wall#{-@group_id}_#{@post.id}" \
@@ -70,6 +71,7 @@ class Comment < Type
       check_keyword(KEYWORDS, comment['text']).to_s
   end
 
+  # check keywords and record db
   def check(type)
     messages = []
     objects(@post, type).each do |comment|
@@ -77,7 +79,7 @@ class Comment < Type
 
       next if @db.in_db?(type, slug(type, comment))
 
-      @db.write_to_db(type, group_id: @group_id, slug: slug(type, comment))
+      @db.write_to_db(type, slug: slug(type, comment))
       messages << message_post(comment) if type == 'post_comments'
       messages << message_topic(comment) if type == 'topic_comments'
     end
