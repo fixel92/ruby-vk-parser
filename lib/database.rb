@@ -1,5 +1,4 @@
 require 'sqlite3'
-require 'pry'
 
 class Database
   attr_reader :db
@@ -7,11 +6,9 @@ class Database
   # create db if not exist
   def initialize
     @db = SQLite3::Database.open('./data/data.db')
-    @db.execute('CREATE TABLE IF NOT EXISTS posts(group_id INTEGER, slug TEXT)')
-    @db.execute('CREATE TABLE IF NOT EXISTS post_comments(group_id INTEGER,
-                 post_id INTEGER, slug TEXT)')
-    @db.execute('CREATE TABLE IF NOT EXISTS topic_comments(group_id INTEGER,
-                 topic_id INTEGER, slug TEXT)')
+    @db.execute('CREATE TABLE IF NOT EXISTS posts(slug TEXT)')
+    @db.execute('CREATE TABLE IF NOT EXISTS post_comments(slug TEXT)')
+    @db.execute('CREATE TABLE IF NOT EXISTS topic_comments(slug TEXT)')
   end
 
   # check exist record in db

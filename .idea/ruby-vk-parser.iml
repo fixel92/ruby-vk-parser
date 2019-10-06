@@ -5,23 +5,25 @@
   </component>
   <component name="NewModuleRootManager">
     <content url="file://$MODULE_DIR$" />
-    <orderEntry type="inheritedJdk" />
+    <orderEntry type="jdk" jdkName="ruby-2.6.3-p62" jdkType="RUBY_SDK" />
     <orderEntry type="sourceFolder" forTests="false" />
-    <orderEntry type="library" scope="PROVIDED" name="coderay (v1.1.2, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="faraday (v0.15.4, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="faraday_middleware (v0.13.1, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="faraday_middleware-multi_json (v0.0.6, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="hashie (v3.6.0, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="jwt (v2.1.0, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="method_source (v0.9.2, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.13.1, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="multi_xml (v0.6.0, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="multipart-post (v2.0.0, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="oauth2 (v1.4.1, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="oj (v3.7.12, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="pry (v0.12.2, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="rack (v2.0.6, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.4.1, RVM: ruby-2.5.3) [gem]" level="application" />
-    <orderEntry type="library" scope="PROVIDED" name="vkontakte_api (v1.4.4, RVM: ruby-2.5.3) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="coderay (v1.1.2, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday (v0.16.2, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday_middleware (v0.13.1, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="faraday_middleware-multi_json (v0.0.6, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="hashie (v3.6.0, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="jwt (v2.2.1, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mail (v2.7.1, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="method_source (v0.9.2, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="mini_mime (v1.0.2, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="multi_json (v1.13.1, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="multi_xml (v0.6.0, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="multipart-post (v2.1.1, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="oauth2 (v1.4.2, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="oj (v3.9.2, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="pry (v0.12.2, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="rack (v2.0.7, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="sqlite3 (v1.4.1, ruby-2.6.3-p62) [gem]" level="application" />
+    <orderEntry type="library" scope="PROVIDED" name="vkontakte_api (v1.4.4, ruby-2.6.3-p62) [gem]" level="application" />
   </component>
 </module>

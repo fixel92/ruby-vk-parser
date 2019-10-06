@@ -1,5 +1,6 @@
 config.rb
 idea
+.idea/
 test.rb
 data/data.db
 data/data

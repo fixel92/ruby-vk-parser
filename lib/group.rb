@@ -1,7 +1,6 @@
 require 'vkontakte_api'
 require_relative '../config'
 require_relative 'type'
-require 'pry'
 
 class  Group < Type
   attr_reader :id, :vk, :token
@@ -10,22 +9,23 @@ class  Group < Type
     super
   end
 
-  def surname(id) # alternative name for group VK
+  # alternative name for group VK
+  def surname(id)
     sleep(1.5)
     @vk.groups.getById(group_id: id)
   end
 
-  def filter(groups) # filter group with opened wall
+  # filter group with opened wall
+  def filter(groups)
     open_wall = []
     groups.select do |group|
-      unless group['wall'] == 3
-        open_wall << group
-      end
+      open_wall << group unless group['wall'] == 3
     end
     open_wall
   end
 
-  def objects(params = {}) # get groups
+  # get groups
+  def objects(params = {})
     group_names = []
     params[:urls].each do |url|
       group_names << url.split('/').last

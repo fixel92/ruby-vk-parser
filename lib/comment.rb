@@ -2,7 +2,6 @@
 
 require 'vkontakte_api'
 require_relative 'type'
-require 'pry'
 
 class Comment < Type
   attr_reader :id, :group_id, :post, :vk
@@ -14,7 +13,8 @@ class Comment < Type
     @db = Database.new
   end
 
-  def objects(post, type) # get comments post or topic
+  # get comments post or topic
+  def objects(post, type)
     comments_offset = 0
     sleep(1)
     if type == 'post_comments'

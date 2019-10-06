@@ -1,8 +1,6 @@
-
 require 'vkontakte_api'
 require_relative 'type'
 require_relative 'database'
-require 'pry'
 
 class Post < Type
   attr_reader :id, :group_id, :vk
@@ -13,7 +11,8 @@ class Post < Type
     @db = Database.new
   end
 
-  def objects(params = {}) # get posts
+  # get posts
+  def objects(params = {})
     sleep(1)
     begin
       return  @vk.wall.get(owner_id: "-#{@group_id}", count: params[:post_count])['items']
@@ -43,6 +42,6 @@ class Post < Type
       messages << message(post)
     end
     @db.close
-    messages
+    messages - []
   end
 end

@@ -1,7 +1,6 @@
 require 'vkontakte_api'
 require_relative '../config'
 require_relative '../data'
-require 'pry'
 
 class Type
   attr_reader :id, :vk, :token

@@ -12,7 +12,7 @@ end
 
 def upgrade_keywords(keys)
   keywords = []
-  chars = %w[! ? , .]
+  chars = %w[! ? , . : ;]
   keys.each do |key|
     keywords << key.to_s
     keywords << key.capitalize.to_s

@@ -2,7 +2,6 @@
 
 require 'vkontakte_api'
 require_relative 'type'
-require 'pry'
 
 class Topic < Type
   attr_reader :id, :group_id, :vk
@@ -12,7 +11,8 @@ class Topic < Type
     @group_id = params[:group_id]
   end
 
-  def objects(params = {}) # get topics
+  # get topics
+  def objects(params = {})
     sleep(1)
     begin
       return @vk.board.get_topics(access_token: SERVICE_TOKEN,
