@@ -11,7 +11,7 @@ class Type
   end
 
   def check_keyword(keywords, text)
-    (keywords & text.split)
+    keywords.select { |key| text.include?(key) }
   end
 
   # check fits text
