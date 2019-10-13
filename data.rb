@@ -1,10 +1,8 @@
 # frozen_string_literal: true
 
-@file_path = File.dirname(__FILE__)
-
 def check_file(file)
-  if File.exist?(@file_path + "/data/#{file}.txt")
-    File.read(@file_path + "/data/#{file}.txt").split("\n").uniq
+  if File.exist?("#{__dir__}/data/#{file}.txt")
+    File.read("#{__dir__}/data/#{file}.txt").split("\n").uniq
   else
     puts "Не найден файл с #{file} групп вконтакте"
   end

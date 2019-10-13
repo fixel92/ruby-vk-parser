@@ -15,7 +15,7 @@ class Post < Type
   def objects(params = {})
     sleep(1)
     begin
-      return  @vk.wall.get(owner_id: "-#{@group_id}", count: params[:post_count])['items']
+      return @vk.wall.get(owner_id: "-#{@group_id}", count: params[:post_count])['items']
     rescue VkontakteApi::Error => e
       puts e
       return []

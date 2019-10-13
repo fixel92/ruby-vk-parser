@@ -16,7 +16,7 @@ messages = []
 
 group_ids.each do |group|
   # get topics
-  topics = Topic.new(group_id: group['id']).objects(topic_counts: 90)
+  topics = Topic.new(group_id: group['id']).objects(topic_counts: 30)
   topics.each do |topic|
     comments_topic = Comment.new(group_id: group['id'], post: topic)
     # check comments topic and send in message
@@ -44,7 +44,6 @@ group_ids.each do |group|
 end
 messages.delete([])
 
-# binding.pry
 if messages.any?
   Mail.defaults do
     delivery_method :smtp, OPTIONS
