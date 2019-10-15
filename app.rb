@@ -9,7 +9,6 @@ require_relative 'lib/comment'
 require_relative 'lib/database'
 require_relative 'data'
 require 'mail'
-require 'pry'
 
 group_ids = Group.new.objects(urls: URLS) # get groups
 messages = []
