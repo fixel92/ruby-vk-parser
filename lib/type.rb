@@ -11,7 +11,7 @@ class Type
   end
 
   def check_keyword(keywords, text)
-    keywords.select { |key| text.include?(key) }
+    keywords.select { |key| (text.match(/\b#{key}\b/)) != nil }
   end
 
   # check fits text
