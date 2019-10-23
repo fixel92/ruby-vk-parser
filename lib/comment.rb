@@ -75,7 +75,7 @@ class Comment < Type
   def check(type)
     messages = []
     objects(@post, type).each do |comment|
-      next unless text_fits?(KEYWORDS, ANTI_KEYWORDS, comment['text'])
+      next unless text_fits?(KEYWORDS, ANTI_KEYWORDS, comment['text']) & check_date(comment.date)
 
       next if @db.in_db?(type, slug(type, comment))
 

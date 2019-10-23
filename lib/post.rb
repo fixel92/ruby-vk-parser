@@ -34,7 +34,7 @@ class Post < Type
   def check(posts)
     messages = []
     posts.each do |post|
-      next unless text_fits?(KEYWORDS, ANTI_KEYWORDS, post['text'])
+      next unless text_fits?(KEYWORDS, ANTI_KEYWORDS, post['text']) & check_date(post.date)
 
       next if @db.in_db?('posts', slug(post))
 

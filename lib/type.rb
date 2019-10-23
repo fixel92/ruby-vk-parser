@@ -10,6 +10,11 @@ class Type
     @token = SERVICE_TOKEN
   end
 
+  def check_date(post_date)
+    year_ago_unix = 15778463
+    post_date > Time.now.to_i - year_ago_unix
+  end
+
   def check_keyword(keywords, text)
     keywords.select { |key| (text.match(/\b#{key}\b/)) != nil }
   end
