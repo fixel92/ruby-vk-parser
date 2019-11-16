@@ -1,8 +1,3 @@
-# frozen_string_literal: true
-
-require 'vkontakte_api'
-require_relative 'type'
-
 class Topic < Type
   attr_reader :id, :group_id, :vk
 
@@ -15,7 +10,7 @@ class Topic < Type
   def objects(params = {})
     sleep(1)
     begin
-      return @vk.board.get_topics(access_token: SERVICE_TOKEN,
+      return @vk.board.get_topics(access_token: token,
                                   group_id: @group_id,
                                   count: params[:topic_counts])['items']
     rescue VkontakteApi::Error => e

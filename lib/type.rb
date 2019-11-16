@@ -1,8 +1,6 @@
-require "vkontakte_api"
-require_relative "../config"
-require_relative "../data"
-
 class Type
+  include DataGroupKey
+
   attr_reader :id, :vk, :token
 
   def initialize(_params = {})

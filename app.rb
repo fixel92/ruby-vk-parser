@@ -1,16 +1,17 @@
 #!/usr/bin/ruby
-# frozen_string_literal: true
-
+require "vkontakte_api"
+require_relative "config"
+require_relative 'lib/data_group_key'
+require_relative 'lib/type'
 require_relative 'lib/type'
 require_relative 'lib/group'
 require_relative 'lib/post'
 require_relative 'lib/topic'
 require_relative 'lib/comment'
 require_relative 'lib/database'
-require_relative 'data'
 require 'mail'
 
-group_ids = Group.new.objects(urls: URLS) # get groups
+group_ids = Group.new.objects(urls: DataGroupKey.urls) # get groups
 messages = []
 
 group_ids.each do |group|

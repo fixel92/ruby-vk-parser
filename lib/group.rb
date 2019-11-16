@@ -1,8 +1,4 @@
-require 'vkontakte_api'
-require_relative '../config'
-require_relative 'type'
-
-class  Group < Type
+class Group < Type
   attr_reader :id, :vk, :token
 
   def initialize

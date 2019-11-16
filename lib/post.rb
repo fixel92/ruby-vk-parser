@@ -1,7 +1,3 @@
-require 'vkontakte_api'
-require_relative 'type'
-require_relative 'database'
-
 class Post < Type
   attr_reader :id, :group_id, :vk
 
@@ -24,7 +20,7 @@ class Post < Type
 
   def message(post)
     "Запись на стене https://vk.com/wall#{-@group_id}_#{post['id']} -" +
-      check_keyword(KEYWORDS, post['text']).to_s
+      check_keyword(keywords, post['text']).to_s
   end
 
   def slug(post)
@@ -34,7 +30,7 @@ class Post < Type
   def check(posts)
     messages = []
     posts.each do |post|
-      next unless text_fits?(KEYWORDS, ANTI_KEYWORDS, post['text']) & check_date(post.date)
+      next unless text_fits?(keywords, anti_keywords, post['text']) & check_date(post.date)
 
       next if @db.in_db?('posts', slug(post))
 
