@@ -1,6 +1,6 @@
 #!/usr/bin/ruby
-require "vkontakte_api"
-require_relative "config"
+require 'vkontakte_api'
+require_relative 'config'
 require_relative 'lib/data_group_key'
 require_relative 'lib/type'
 require_relative 'lib/type'
