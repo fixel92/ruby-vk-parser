@@ -1,6 +1,22 @@
 class Post < Type
   attr_reader :id, :group_id, :vk
 
+  def self.get_valid(group_id)
+    messages = []
+    new_post = new(group_id: group_id)
+    posts = new_post.objects(post_count: 20) # get posts
+    if posts.empty?
+      messages << Group.message_none_posts(group_id)
+    else
+      # check posts and send in messages
+      new_post.check(posts).each { |item| messages << item }
+      posts.each do |post|
+        Comment.get_valid(group_id, post, 'post_comments').each { |item| messages << item }
+      end
+    end
+    messages
+  end
+
   def initialize(params = {})
     super
     @group_id = params[:group_id]

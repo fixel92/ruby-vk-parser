@@ -1,6 +1,11 @@
 class Comment < Type
   attr_reader :id, :group_id, :post, :vk
 
+  def self.get_valid(group_id, post, type)
+    comments_post = new(group_id: group_id, post: post)
+    comments_post.check(type)
+  end
+
   def initialize(params = {})
     super
     @group_id = params[:group_id]
@@ -13,7 +18,9 @@ class Comment < Type
     comments_offset = 0
     sleep(1)
     if type == 'post_comments'
-      comments_offset = post['comments']['count'] - 99 if post['comments']['count'] > 99
+      if post['comments']['count'] > 99
+        comments_offset = post['comments']['count'] - 99
+      end
       @vk.wall.get_comments(access_token: token,
                             owner_id: -@group_id,
                             post_id: @post.id,
@@ -27,10 +34,6 @@ class Comment < Type
                              offset: comments_offset,
                              count: 99)['items']
     end
-  end
-
-  def non_zero?
-    @post['comments']['count'].nonzero?
   end
 
   def reply_comment(comment)
@@ -56,7 +59,7 @@ class Comment < Type
   def message_post(comment)
     "Комментарий https://vk.com/wall#{-@group_id}_#{@post.id}" \
     "?reply=#{comment.id}+#{reply_comment(comment)}" \
-      "&w=wall#{-@group_id}_#{@post.id}_r#{comment.id} -" +
+    "&w=wall#{-@group_id}_#{@post.id}_r#{comment.id} -" +
       check_keyword(keywords, comment['text']).to_s
   end
 
