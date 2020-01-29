@@ -10,6 +10,7 @@ require_relative 'lib/post'
 require_relative 'lib/topic'
 require_relative 'lib/comment'
 require_relative 'lib/database'
+require_relative 'lib/output'
 require 'mail'
 
 group_ids = Group.new.objects(urls: DataGroupKey.urls) # get groups
@@ -19,20 +20,8 @@ group_ids.each do |group|
   Topic.get_valid(group['id']).each { |item| messages << item }
   Post.get_valid(group['id']).each { |item| messages << item }
 end
-messages.delete([])
 
-if messages.any?
-  Mail.defaults do
-    delivery_method :smtp, OPTIONS
-  end
+output = Output.new(messages)
+output.check_records_count
 
-  Mail.deliver do
-    to ENV['EMAIL_TO']
-    from ENV['EMAIL_FROM']
-    subject 'Парсер ВК'
-    body "Ссылки на посты и комментарии по ключевым словам:\n\n#{messages.join("\n")}"
-  end
-else
-  puts('Нет записей')
-end
-
+output.send_in_txt
