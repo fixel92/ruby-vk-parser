@@ -14,24 +14,19 @@ class Comment < Type
   end
 
   # get comments post or topic
-  def objects(post, type)
-    comments_offset = 0
+  def objects(type)
     sleep(1)
     if type == 'post_comments'
-      if post['comments']['count'] > 99
-        comments_offset = post['comments']['count'] - 99
-      end
       @vk.wall.get_comments(access_token: token,
                             owner_id: -@group_id,
                             post_id: @post.id,
-                            offset: comments_offset,
+                            sort: 'desc',
                             count: 99)['items']
     elsif type == 'topic_comments'
-      comments_offset = post['comments'] - 99 if post['comments'] > 99
       @vk.board.get_comments(access_token: token,
                              group_id: @group_id,
                              topic_id: @post.id,
-                             offset: comments_offset,
+                             sort: 'desc',
                              count: 99)['items']
     end
   end
@@ -72,7 +67,7 @@ class Comment < Type
   # check keywords and record db
   def check(type)
     messages = []
-    objects(@post, type).each do |comment|
+    objects(type).each do |comment|
       next unless text_fits?(keywords, anti_keywords, comment['text']) & check_date(comment.date)
 
       next if @db.in_db?(type, slug(type, comment))
