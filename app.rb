@@ -17,6 +17,17 @@ require_relative 'lib/html_sender'
 require_relative 'lib/txt_sender'
 require 'mail'
 
+output_type = case ARGV[0]
+              when '--email'
+                EmailSender.new
+              when '--txt'
+                TxtSender.new
+              when '--html'
+                HtmlSender.new
+              else
+                TxtSender.new
+              end
+
 group_ids = Group.new.objects(urls: DataGroupKey.urls) # get groups
 messages = []
 
@@ -28,4 +39,4 @@ end
 
 records = OutputGenerator.new(messages).generate_records
 
-Output.new.send_report(TxtSender.new, records) unless records.nil?
+Output.new.send_report(output_type, records) unless records.nil?
