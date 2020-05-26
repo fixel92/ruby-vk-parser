@@ -3,18 +3,6 @@
 require 'dotenv/load'
 require 'vkontakte_api'
 require_relative 'config'
-require_relative 'lib/data_group_key'
-require_relative 'lib/type'
-require_relative 'lib/group'
-require_relative 'lib/post'
-require_relative 'lib/topic'
-require_relative 'lib/comment'
-require_relative 'lib/database'
-require_relative 'lib/output_generator'
-require_relative 'lib/output'
-require_relative 'lib/email_sender'
-require_relative 'lib/html_sender'
-require_relative 'lib/txt_sender'
 require 'mail'
 
 output_type = case ARGV[0]
@@ -38,5 +26,6 @@ group_ids.each do |group|
 end
 
 records = OutputGenerator.new(messages).generate_records
+TempResult.save(records)
 
 Output.new.send_report(output_type, records) unless records.nil?
