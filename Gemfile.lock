@@ -24,7 +24,7 @@ GEM
       multi_xml (~> 0.5)
       rack (>= 1.2, < 3)
     oj (3.10.1)
-    rack (2.1.1)
+    rack (2.2.3)
     sqlite3 (1.4.2)
     vkontakte_api (1.4.4)
       faraday (>= 0.9.0)
