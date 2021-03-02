@@ -3,25 +3,29 @@
 require 'dotenv/load'
 require 'vkontakte_api'
 require_relative 'config'
-require_relative 'lib/data_group_key'
-require_relative 'lib/type'
-require_relative 'lib/group'
-require_relative 'lib/post'
-require_relative 'lib/topic'
-require_relative 'lib/comment'
-require_relative 'lib/database'
-require_relative 'lib/output'
 require 'mail'
+
+output_type = case ARGV[0]
+              when '--email'
+                EmailSender.new
+              when '--txt'
+                TxtSender.new
+              when '--html'
+                HtmlSender.new
+              else
+                TxtSender.new
+              end
 
 group_ids = Group.new.objects(urls: DataGroupKey.urls) # get groups
 messages = []
 
 group_ids.each do |group|
-  Topic.get_valid(group['id']).each { |item| messages << item }
-  Post.get_valid(group['id']).each { |item| messages << item }
+  [Topic, Post].each do |i|
+    i.get_valid(group['id']).each { |item| messages << item }
+  end
 end
 
-output = Output.new(messages)
-output.check_records_count
+records = OutputGenerator.new(messages).generate_records
+TempResult.save(records)
 
-output.send_in_txt
+Output.new.send_report(output_type, records) unless records.nil?
