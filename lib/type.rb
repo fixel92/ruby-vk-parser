@@ -14,7 +14,7 @@ class Type
   end
 
   def check_keyword(keywords, text)
-    keywords.reject { |key| text.match(/\b#{key}\b/).nil? }
+    keywords.reject { |key| text.downcase.match(/\b#{key}\b/).nil? }
   end
 
   # check fits text
