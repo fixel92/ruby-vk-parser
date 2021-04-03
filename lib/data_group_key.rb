@@ -8,13 +8,7 @@ module DataGroupKey
   end
 
   def upgrade_keywords(keys)
-    keywords = []
-    keys.each do |key|
-      keywords << key.to_s
-      keywords << key.capitalize.to_s
-      keywords << key.upcase.to_s
-    end
-    keywords
+    keys.map(&:downcase)
   end
 
   def keywords
