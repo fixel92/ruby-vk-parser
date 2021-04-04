@@ -1,6 +1,8 @@
 class Post < Type
   attr_reader :id, :group_id, :vk
 
+  MESSAGE_TYPE = 'Запись на стене'.freeze
+
   def self.get_valid(group_id)
     messages = []
     new_post = new(group_id: group_id)
@@ -11,7 +13,7 @@ class Post < Type
       # check posts and send in messages
       new_post.check(posts).each { |item| messages << item }
       posts.each do |post|
-        Comment.get_valid(group_id, post, 'post_comments').each { |item| messages << item }
+        Comment.get_valid(group_id, post, :post_comments).each { |item| messages << item }
       end
     end
     messages
@@ -34,13 +36,16 @@ class Post < Type
     end
   end
 
-  def message(post)
-    "Запись на стене https://vk.com/wall#{-@group_id}_#{post['id']} -" +
-      check_keyword(keywords, post['text']).to_s
-  end
-
   def slug(post)
     "https://vk.com/wall#{-@group_id}_#{post['id']}"
+  end
+
+  def message(post)
+    {
+      type: MESSAGE_TYPE,
+      url: slug(post),
+      keywords: check_keyword(keywords, post['text']).to_s
+    }
   end
 
   def check(posts)

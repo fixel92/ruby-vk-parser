@@ -5,7 +5,7 @@ class Topic < Type
     messages = []
     topics = new(group_id: group_id).objects(topic_counts: 30)
     topics.each do |topic|
-      Comment.get_valid(group_id, topic, 'topic_comments').each { |item| messages << item }
+      Comment.get_valid(group_id, topic, :topic_comments).each { |item| messages << item }
     end
     messages
   end

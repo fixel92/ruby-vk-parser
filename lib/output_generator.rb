@@ -4,18 +4,12 @@ class OutputGenerator
   end
 
   def generate_records
-    "#{@messages.join("\n")}" if check
-  end
+    return unless @messages.any?
 
-  private
-
-  def cleaning_messages
-    @messages.delete([])
-  end
-
-  def check
-    cleaning_messages
-
-    @messages.any?
+    result_hash = {}
+    @messages.each_with_index do |prod, index|
+      result_hash[index] = prod
+    end
+    result_hash
   end
 end

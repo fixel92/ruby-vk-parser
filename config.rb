@@ -13,7 +13,7 @@ require_relative 'lib/output'
 require_relative 'lib/email_sender'
 require_relative 'lib/html_sender'
 require_relative 'lib/txt_sender'
-require_relative 'lib/temp_result'
+require_relative 'lib/json_sender'
 
 VkontakteApi.configure do |config|
   config.api_version = '5.74'

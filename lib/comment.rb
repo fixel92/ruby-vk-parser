@@ -1,6 +1,8 @@
 class Comment < Type
   attr_reader :id, :group_id, :post, :vk
 
+  MESSAGE_TYPE = { post_comments: 'Комментарий', topic_comments: 'Запись в обсуждении' }.freeze
+
   def self.get_valid(group_id, post, type)
     comments_post = new(group_id: group_id, post: post)
     comments_post.check(type)
@@ -16,13 +18,13 @@ class Comment < Type
   # get comments post or topic
   def objects(type)
     sleep(1)
-    if type == 'post_comments'
+    if type == :post_comments
       @vk.wall.get_comments(access_token: token,
                             owner_id: -@group_id,
                             post_id: @post.id,
                             sort: 'desc',
                             count: 99)['items']
-    elsif type == 'topic_comments'
+    elsif type == :topic_comments
       @vk.board.get_comments(access_token: token,
                              group_id: @group_id,
                              topic_id: @post.id,
@@ -41,27 +43,23 @@ class Comment < Type
 
   # url comment
   def slug(type, comment)
-    if type == 'post_comments'
+    case type
+    when :post_comments
       "https://vk.com/wall#{-@group_id}_#{@post.id}" \
       "?reply=#{comment.id}+#{reply_comment(comment)}" \
-        "&w=wall#{-@group_id}_#{@post.id}_r#{comment.id}"
-    elsif type == 'topic_comments'
+      "&w=wall#{-@group_id}_#{@post.id}_r#{comment.id}"
+    when :topic_comments
       "https://vk.com/topic#{-@group_id}_#{@post.id}" \
       "?post=#{comment.id} -"
     end
   end
 
-  def message_post(comment)
-    "Комментарий https://vk.com/wall#{-@group_id}_#{@post.id}" \
-    "?reply=#{comment.id}+#{reply_comment(comment)}" \
-    "&w=wall#{-@group_id}_#{@post.id}_r#{comment.id} -" +
-      check_keyword(keywords, comment['text']).to_s
-  end
-
-  def message_topic(comment)
-    "Запись в обсуждении https://vk.com/topic#{-@group_id}_#{@post.id}" \
-    "?post=#{comment.id} -" +
-      check_keyword(keywords, comment['text']).to_s
+  def message(type, comment)
+    {
+      type: MESSAGE_TYPE[type],
+      url: slug(type, comment),
+      keywords: check_keyword(keywords, comment['text']).to_s
+    }
   end
 
   # check keywords and record db
@@ -73,11 +71,9 @@ class Comment < Type
       next if @db.in_db?(type, slug(type, comment))
 
       @db.write_to_db(type, slug: slug(type, comment))
-      messages << message_post(comment) if type == 'post_comments'
-      messages << message_topic(comment) if type == 'topic_comments'
+      messages << message(type, comment)
     end
     @db.close
     messages - []
   end
 end
-
