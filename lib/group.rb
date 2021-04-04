@@ -2,8 +2,11 @@ class Group < Type
   attr_reader :id, :vk, :token
 
   def self.message_none_posts(id)
-    'Не получены посты группы https://vk.com/public' +
-      Group.new.surname(id)[0]['id'].to_s
+    {
+      type: 'Не получены посты группы',
+      url: "https://vk.com/public#{Group.new.surname(id)[0]['id']}",
+      keywords: []
+    }
   end
 
   def initialize
