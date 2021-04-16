@@ -3,8 +3,8 @@ class Comment < Type
 
   MESSAGE_TYPE = { post_comments: 'Комментарий', topic_comments: 'Запись в обсуждении' }.freeze
 
-  def self.get_valid(group_id, post, type)
-    comments_post = new(group_id: group_id, post: post)
+  def self.get_valid(group_id, post, type, data)
+    comments_post = new(group_id: group_id, post: post, data: data)
     comments_post.check(type)
   end
 
@@ -13,6 +13,8 @@ class Comment < Type
     @group_id = params[:group_id]
     @post = params[:post]
     @db = Database.new
+    @keywords = params[:data][:keywords]
+    @anti_keywords = params[:data][:anti_keywords]
   end
 
   # get comments post or topic
@@ -58,7 +60,7 @@ class Comment < Type
     {
       type: MESSAGE_TYPE[type],
       url: slug(type, comment),
-      keywords: check_keyword(keywords, comment['text']).to_s
+      keywords: check_keyword(@keywords, comment['text']).to_s
     }
   end
 
@@ -66,7 +68,7 @@ class Comment < Type
   def check(type)
     messages = []
     objects(type).each do |comment|
-      next unless text_fits?(keywords, anti_keywords, comment['text']) & check_date(comment.date)
+      next unless text_fits?(@keywords, @anti_keywords, comment['text']) & check_date(comment.date)
 
       next if @db.in_db?(type, slug(type, comment))
 

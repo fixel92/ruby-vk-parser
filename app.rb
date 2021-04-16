@@ -5,6 +5,7 @@ require 'json'
 require 'vkontakte_api'
 require_relative 'config'
 require 'mail'
+require 'pry'
 
 output_type = case ARGV[0]
               when '--email'
@@ -19,12 +20,14 @@ output_type = case ARGV[0]
                 TxtSender.new
               end
 
-group_ids = Group.new.objects(urls: DataGroupKey.urls) # get groups
+input_data = CsvGetter.new.call
+
+group_ids = Group.new.objects(urls: input_data[:urls]) # get groups
 messages = []
 
 group_ids.each do |group|
   [Topic, Post].each do |i|
-    i.get_valid(group['id']).each { |item| messages << item }
+    i.get_valid(group['id'], input_data).each { |item| messages << item }
   end
 end
 

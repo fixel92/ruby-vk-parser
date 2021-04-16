@@ -1,6 +1,4 @@
 class Type
-  include DataGroupKey
-
   attr_reader :id, :vk, :token
 
   def initialize(_params = {})

@@ -3,9 +3,9 @@ class Post < Type
 
   MESSAGE_TYPE = 'Запись на стене'.freeze
 
-  def self.get_valid(group_id)
+  def self.get_valid(group_id, data)
     messages = []
-    new_post = new(group_id: group_id)
+    new_post = new(group_id: group_id, data: data)
     posts = new_post.objects(post_count: 20) # get posts
     if posts.empty?
       messages << Group.message_none_posts(group_id)
@@ -13,7 +13,7 @@ class Post < Type
       # check posts and send in messages
       new_post.check(posts).each { |item| messages << item }
       posts.each do |post|
-        Comment.get_valid(group_id, post, :post_comments).each { |item| messages << item }
+        Comment.get_valid(group_id, post, :post_comments, data).each { |item| messages << item }
       end
     end
     messages
@@ -23,6 +23,8 @@ class Post < Type
     super
     @group_id = params[:group_id]
     @db = Database.new
+    @keywords = params[:data][:keywords]
+    @anti_keywords = params[:data][:anti_keywords]
   end
 
   # get posts
@@ -44,14 +46,14 @@ class Post < Type
     {
       type: MESSAGE_TYPE,
       url: slug(post),
-      keywords: check_keyword(keywords, post['text']).to_s
+      keywords: check_keyword(@keywords, post['text']).to_s
     }
   end
 
   def check(posts)
     messages = []
     posts.each do |post|
-      next unless text_fits?(keywords, anti_keywords, post['text']) & check_date(post.date)
+      next unless text_fits?(@keywords, @anti_keywords, post['text']) & check_date(post.date)
 
       next if @db.in_db?('posts', slug(post))
 
