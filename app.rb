@@ -31,6 +31,8 @@ group_ids.each do |group|
   end
 end
 
+messages = messages.sort_by { |item| Date.parse(item[:date]) }.reverse
+
 records = OutputGenerator.new(messages).generate_records
 if records.nil?
   puts 'Not found'

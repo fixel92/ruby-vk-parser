@@ -16,6 +16,7 @@ class Post < Type
         Comment.get_valid(group_id, post, :post_comments, data).each { |item| messages << item }
       end
     end
+
     messages
   end
 
@@ -46,14 +47,16 @@ class Post < Type
     {
       type: MESSAGE_TYPE,
       url: slug(post),
-      keywords: check_keyword(@keywords, post['text']).to_s
+      text: post.text,
+      date: Time.at(post.date).strftime("%d/%m/%Y"),
+      keywords: check_keyword(@keywords, post.text)
     }
   end
 
   def check(posts)
     messages = []
     posts.each do |post|
-      next unless text_fits?(@keywords, @anti_keywords, post['text']) & check_date(post.date)
+      next unless text_fits?(@keywords, @anti_keywords, post.text) & check_date(post.date)
 
       next if @db.in_db?('posts', slug(post))
 

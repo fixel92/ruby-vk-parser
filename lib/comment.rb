@@ -60,7 +60,9 @@ class Comment < Type
     {
       type: MESSAGE_TYPE[type],
       url: slug(type, comment),
-      keywords: check_keyword(@keywords, comment['text']).to_s
+      text: comment.text,
+      date: Time.at(comment.date).strftime("%d/%m/%Y"),
+      keywords: check_keyword(@keywords, comment.text)
     }
   end
 
@@ -68,7 +70,7 @@ class Comment < Type
   def check(type)
     messages = []
     objects(type).each do |comment|
-      next unless text_fits?(@keywords, @anti_keywords, comment['text']) & check_date(comment.date)
+      next unless text_fits?(@keywords, @anti_keywords, comment.text) & check_date(comment.date)
 
       next if @db.in_db?(type, slug(type, comment))
 
