@@ -3,6 +3,7 @@
 require 'dotenv/load'
 require 'json'
 require 'vkontakte_api'
+require 'google_drive'
 require_relative 'config'
 require 'mail'
 require 'pry'
@@ -16,6 +17,8 @@ output_type = case ARGV[0]
                 HtmlSender.new
               when '--json'
                 JsonSender.new
+              when '--google_csv'
+                GoogleCsvSender.new
               else
                 TxtSender.new
               end

@@ -13,6 +13,7 @@ require_relative 'lib/senders/email_sender'
 require_relative 'lib/senders/html_sender'
 require_relative 'lib/senders/txt_sender'
 require_relative 'lib/senders/json_sender'
+require_relative 'lib/senders/google_csv_sender'
 require_relative 'lib/getters/csv_getter'
 
 VkontakteApi.configure do |config|

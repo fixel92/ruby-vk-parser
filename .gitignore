@@ -3,3 +3,4 @@ test.rb
 data/data.db
 data/data
 my_output*
+client_secret.json
