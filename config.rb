@@ -54,6 +54,14 @@ Choice.options do
     valid %w[email txt html json google_csv]
   end
 
+  option :days_ago do
+    short '-d'
+    long '--days_ago=1-180'
+    desc 'Find records before days ago (default 14)'
+    default 14
+    cast Integer
+  end
+
   separator ''
   separator 'Common options: '
 
@@ -62,6 +70,8 @@ Choice.options do
     desc 'Show this message'
   end
 end
+
+DAYS_AGO = 24 * 60 * 60 * Choice['days_ago']
 
 OUTPUT = {
   'email' => EmailSender.new,

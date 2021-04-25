@@ -7,8 +7,7 @@ class Type
   end
 
   def check_date(post_date)
-    year_ago_unix = 15_778_463
-    post_date > Time.now.to_i - year_ago_unix
+    post_date > Time.now.to_i - DAYS_AGO
   end
 
   def check_keyword(keywords, text)
