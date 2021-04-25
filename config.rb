@@ -2,6 +2,7 @@
 
 require 'choice'
 require 'mail'
+require 'pry'
 require_relative 'lib/type'
 require_relative 'lib/group'
 require_relative 'lib/post'
@@ -16,6 +17,8 @@ require_relative 'lib/senders/txt_sender'
 require_relative 'lib/senders/json_sender'
 require_relative 'lib/senders/google_csv_sender'
 require_relative 'lib/getters/csv_getter'
+
+REQUESTS_INTERVAL = 0.5 # time between requests
 
 VkontakteApi.configure do |config|
   config.api_version = '5.74'
@@ -40,6 +43,7 @@ Choice.options do
     long '--input=csv'
     desc 'Source of input (default csv)'
     default 'csv'
+    valid %w[csv]
   end
 
   option :output do
@@ -47,6 +51,7 @@ Choice.options do
     long '--output=[email|txt|html|json|google_csv]'
     desc 'Output (default html)'
     default 'html'
+    valid %w[email txt html json google_csv]
   end
 
   separator ''

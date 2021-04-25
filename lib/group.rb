@@ -15,7 +15,7 @@ class Group < Type
 
   # alternative name for group VK
   def surname(id)
-    sleep(1.5)
+    sleep(REQUESTS_INTERVAL)
     @vk.groups.getById(group_id: id)
   end
 
@@ -34,7 +34,7 @@ class Group < Type
     params[:urls].each do |url|
       group_names << url.split('/').last
     end
-    sleep(1.5)
+    sleep(REQUESTS_INTERVAL)
     filter(@vk.groups.getById(group_ids: group_names, fields: 'wall'))
   end
 end

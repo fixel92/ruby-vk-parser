@@ -30,7 +30,7 @@ class Post < Type
 
   # get posts
   def objects(params = {})
-    sleep(1)
+    sleep(REQUESTS_INTERVAL)
     begin
       return @vk.wall.get(owner_id: "-#{@group_id}", count: params[:post_count])['items']
     rescue VkontakteApi::Error => e

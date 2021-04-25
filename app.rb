@@ -8,8 +8,8 @@ require_relative 'config'
 require 'mail'
 require 'pry'
 
-output_type = OUTPUT[Choice.choices['output']]
-input_data = INPUT[Choice.choices['input']]
+output_type = OUTPUT[Choice['output']]
+input_data = INPUT[Choice['input']]
 
 group_ids = Group.new.objects(urls: input_data[:urls]) # get groups
 messages = []

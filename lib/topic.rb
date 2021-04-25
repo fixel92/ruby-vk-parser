@@ -17,7 +17,7 @@ class Topic < Type
 
   # get topics
   def objects(params = {})
-    sleep(1)
+    sleep(REQUESTS_INTERVAL)
     begin
       return @vk.board.get_topics(access_token: token,
                                   group_id: @group_id,

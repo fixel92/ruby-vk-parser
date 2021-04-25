@@ -19,7 +19,7 @@ class Comment < Type
 
   # get comments post or topic
   def objects(type)
-    sleep(1)
+    sleep(REQUESTS_INTERVAL)
     if type == :post_comments
       @vk.wall.get_comments(access_token: token,
                             owner_id: -@group_id,
