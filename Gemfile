@@ -1,5 +1,6 @@
 source 'http://rubygems.org'
 
+gem 'choice'
 gem 'dotenv'
 gem 'google_drive'
 gem 'json'

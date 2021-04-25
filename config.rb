@@ -1,5 +1,6 @@
 # frozen_string_literal: true
 
+require 'choice'
 require 'mail'
 require_relative 'lib/type'
 require_relative 'lib/group'
@@ -29,3 +30,42 @@ Mail.defaults do
                            authentication: 'plain',
                            enable_starttls_auto: true }.freeze
 end
+
+Choice.options do
+  header ''
+  header 'Specific options:'
+
+  option :input do
+    short '-i'
+    long '--input=csv'
+    desc 'Source of input (default csv)'
+    default 'csv'
+  end
+
+  option :output do
+    short '-o'
+    long '--output=[email|txt|html|json|google_csv]'
+    desc 'Output (default html)'
+    default 'html'
+  end
+
+  separator ''
+  separator 'Common options: '
+
+  option :help do
+    long '--help'
+    desc 'Show this message'
+  end
+end
+
+OUTPUT = {
+  'email' => EmailSender.new,
+  'txt' => TxtSender.new,
+  'html' => HtmlSender.new,
+  'json' => JsonSender.new,
+  'google_csv' => GoogleCsvSender.new
+}.freeze
+
+INPUT = {
+  'csv' => CsvGetter.new.call
+}.freeze

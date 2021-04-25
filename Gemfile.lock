@@ -3,6 +3,7 @@ GEM
   specs:
     addressable (2.7.0)
       public_suffix (>= 2.0.2, < 5.0)
+    choice (0.2.0)
     declarative (0.0.20)
     dotenv (2.7.5)
     faraday (0.17.3)
@@ -92,6 +93,7 @@ PLATFORMS
   ruby
 
 DEPENDENCIES
+  choice
   dotenv
   google_drive
   json

@@ -8,22 +8,8 @@ require_relative 'config'
 require 'mail'
 require 'pry'
 
-output_type = case ARGV[0]
-              when '--email'
-                EmailSender.new
-              when '--txt'
-                TxtSender.new
-              when '--html'
-                HtmlSender.new
-              when '--json'
-                JsonSender.new
-              when '--google_csv'
-                GoogleCsvSender.new
-              else
-                TxtSender.new
-              end
-
-input_data = CsvGetter.new.call
+output_type = OUTPUT[Choice.choices['output']]
+input_data = INPUT[Choice.choices['input']]
 
 group_ids = Group.new.objects(urls: input_data[:urls]) # get groups
 messages = []
