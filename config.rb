@@ -16,14 +16,16 @@ require_relative 'lib/senders/html_sender'
 require_relative 'lib/senders/txt_sender'
 require_relative 'lib/senders/json_sender'
 require_relative 'lib/senders/google_csv_sender'
+require_relative 'lib/senders/online_table_sender'
 require_relative 'lib/getters/csv_getter'
 
 REQUESTS_INTERVAL = 0.5 # time between requests
+GMAIL = ENV['GMAIL']
+SERVICE_TOKEN = ENV['SERVICE_TOKEN_VK']
 
 VkontakteApi.configure do |config|
   config.api_version = '5.74'
 end
-SERVICE_TOKEN = ENV['SERVICE_TOKEN_VK']
 
 Mail.defaults do
   delivery_method :smtp, { address: 'smtp.gmail.com',
@@ -51,7 +53,7 @@ Choice.options do
     long '--output=[email|txt|html|json|google_csv]'
     desc 'Output (default html)'
     default 'html'
-    valid %w[email txt html json google_csv]
+    valid %w[email txt html json google_csv online_table]
   end
 
   option :days_ago do
@@ -78,6 +80,7 @@ OUTPUT = {
   'txt' => TxtSender.new,
   'html' => HtmlSender.new,
   'json' => JsonSender.new,
+  'online_table' => OnlineTableSender.new,
   'google_csv' => GoogleCsvSender.new
 }.freeze
 
