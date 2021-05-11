@@ -48,6 +48,7 @@ class Post < Type
       type: MESSAGE_TYPE,
       url: slug(post),
       text: post.text,
+      image: post.attachments.first.photo&.photo_130,
       date: Time.at(post.date).strftime("%d/%m/%Y"),
       keywords: check_keyword(@keywords, post.text)
     }
