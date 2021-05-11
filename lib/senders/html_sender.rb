@@ -11,11 +11,16 @@ class HtmlSender
     end.join(' ')
   end
 
+  def image(value)
+    %(<img src="#{value[:image]}">) if value[:image]
+  end
+
   def prepare_rows(data)
     data.values.map do |i|
       %(
       <tr>
         <td>#{i[:type]}</td>
+        <td class="center aligned">#{image(i)}</td>
         <td><small>#{i[:text]}</small></td>
         <td><b>#{i[:date]}</b></td>
         <td><small><a href="#{i[:url]}" target="_blank">Перейти</a></small></td>
@@ -49,6 +54,7 @@ class HtmlSender
           <thead>
             <tr>
               <th>Тип записи</th>
+              <th>Изображение</th>
               <th>Текст</th>
               <th>Дата</th>
               <th>Ссылка</th>

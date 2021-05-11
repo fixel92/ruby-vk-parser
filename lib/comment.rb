@@ -61,6 +61,7 @@ class Comment < Type
       type: MESSAGE_TYPE[type],
       url: slug(type, comment),
       text: comment.text,
+      image: post.attachments.first.photo&.photo_130,
       date: Time.at(comment.date).strftime("%d/%m/%Y"),
       keywords: check_keyword(@keywords, comment.text)
     }
