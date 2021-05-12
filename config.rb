@@ -18,6 +18,7 @@ require_relative 'lib/senders/json_sender'
 require_relative 'lib/senders/google_csv_sender'
 require_relative 'lib/senders/online_table_sender'
 require_relative 'lib/getters/csv_getter'
+require_relative 'lib/getters/google_csv_getter'
 
 REQUESTS_INTERVAL = 0.5 # time between requests
 GMAIL = ENV['GMAIL']
@@ -45,7 +46,7 @@ Choice.options do
     long '--input=csv'
     desc 'Source of input (default csv)'
     default 'csv'
-    valid %w[csv]
+    valid %w[csv google_csv]
   end
 
   option :output do
@@ -85,5 +86,6 @@ OUTPUT = {
 }.freeze
 
 INPUT = {
-  'csv' => CsvGetter.new.call
+  'csv' => CsvGetter.new.call,
+  'google_csv' => GoogleCsvGetter.new.call
 }.freeze
