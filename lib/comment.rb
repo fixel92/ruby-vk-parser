@@ -61,7 +61,7 @@ class Comment < Type
       type: MESSAGE_TYPE[type],
       url: slug(type, comment),
       text: comment.text,
-      image: post.attachments.first.photo&.photo_130,
+      image: post_image(post),
       date: Time.at(comment.date).strftime("%d/%m/%Y"),
       keywords: check_keyword(@keywords, comment.text)
     }
@@ -80,5 +80,15 @@ class Comment < Type
     end
     @db.close
     messages - []
+  end
+
+  private
+
+  def post_image(post)
+    if post.attachments
+      post.attachments.first.photo&.photo_130
+    elsif post.copy_history.first.attachments
+      post.copy_history.first.attachments.first.photo&.photo_130
+    end
   end
 end
