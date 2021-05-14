@@ -10,6 +10,7 @@ require 'pry'
 
 output_type = OUTPUT[Choice['output']]
 input_data = INPUT[Choice['input']]
+ENV['EMAIL_TO'] = input_data[:email] if input_data[:email]
 
 group_ids = Group.new.objects(urls: input_data[:urls]) # get groups
 messages = []
