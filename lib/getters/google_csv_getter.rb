@@ -13,7 +13,7 @@ class GoogleCsvGetter
   private
 
   def session
-    @session ||= GoogleDrive::Session.from_config('client_secret.json')
+    @session ||= GoogleDrive::Session.from_config("#{__dir__}/../../client_secret.json")
   end
 
   def ws

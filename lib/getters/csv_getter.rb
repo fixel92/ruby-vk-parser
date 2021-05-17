@@ -10,7 +10,7 @@ class CsvGetter
   private
 
   def prepare_data
-    @prepare_data ||= CSV.read('./data/input_data.csv', { headers: true, header_converters: :symbol })
+    @prepare_data ||= CSV.read("#{__dir__}/../../data/input_data.csv", { headers: true, header_converters: :symbol })
   end
 
   def get_column(name)
