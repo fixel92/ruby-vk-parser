@@ -7,7 +7,7 @@ class GoogleCsvGetter
     { urls: get_column(:urls).reject(&:empty?),
       keywords: get_column(:keywords).map(&:downcase).reject(&:empty?),
       anti_keywords: get_column(:anti_keywords).map(&:downcase).reject(&:empty?),
-      email: get_column(:email).first }
+      email: get_column(:email).join(',') }
   end
 
   private
