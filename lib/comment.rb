@@ -87,8 +87,6 @@ class Comment < Type
   def post_image(post)
     if post.attachments
       post.attachments.first.photo&.photo_130
-    elsif post.copy_history.first.attachments
-      post.copy_history.first.attachments.first.photo&.photo_130
     end
   end
 end
