@@ -75,7 +75,7 @@ class EmailSender
           <tr>
             <td align="center" style="padding:0;">
               <table role="presentation"
-                style="width:802px;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
+                style="width:90%;border-collapse:collapse;border:1px solid #cccccc;border-spacing:0;text-align:left;">
                 <tr>
                   <td style="padding:36px 30px 42px 30px;">
                     <table role="presentation" style="width:100%;border-collapse:collapse;border:0;border-spacing:0;">
